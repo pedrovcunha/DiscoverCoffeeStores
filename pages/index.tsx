@@ -38,7 +38,7 @@ const Home: NextPage<Props> = (props) => {
   const handleOnBannerBtnClick = () => {
     handleTrackLocation();
   }
-
+  // bla
   useEffect(() => {
     const fetchStores = async (latLong: string) => {
       let stores: IShop[] = [];
