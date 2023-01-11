@@ -1,6 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Using HTTPS on local development server
+
+First, install Mkcert for the SSL certificate:
+- [Mkcert Github](https://github.com/FiloSottile/mkcert) -  Mkcert
+- 
+```Generate an CA (Certificate Authority)
+mkcert -install
+mkcert localhost
+```
 
 First, run the development server:
 
