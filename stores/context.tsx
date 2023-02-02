@@ -1,17 +1,17 @@
 import { createContext, useReducer } from "react";
-import { IShop } from "../models/shop";
+import { IShop, Shop } from "../models/shop";
 import { storeReducer } from "./reducers";
 
 export interface ContextState {
     // set the type of state we need to handle with context
     latLong: string,
-    coffeeStores: IShop[]
+    coffeeStores: Shop[]
 }
 
 // set an empty object as default state
 export const initialState: ContextState = {
     latLong: '',
-    coffeeStores: [] as IShop[]    
+    coffeeStores: [] as Shop[]    
 };
 
 export const AppContext = createContext<

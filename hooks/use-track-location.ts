@@ -13,7 +13,6 @@ export interface Position {
 
 const useTrackLocation = () => {
     const [locationErrorMsg, setLocationErrorMsg] = useState('');
-    // const [latLong, setLatLong] = useState('');
     const [isFindinglocation, setIsFindingLocation] = useState(false);
     const { dispatch } = useContext(AppContext);
     
@@ -21,7 +20,6 @@ const useTrackLocation = () => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
     
-        // setLatLong(`${latitude},${longitude}`);
         dispatch({
             type: Types.SetLatLong,
             payload: {latLong: `${latitude},${longitude}`}
@@ -41,7 +39,6 @@ const useTrackLocation = () => {
         if (!navigator.geolocation) {
             setLocationErrorMsg('Geolocation is not supported by your browser');
         } else {
-            // status.textContext = 'Locating...';
             navigator.geolocation.getCurrentPosition(success, error);
         }
     }

@@ -1,17 +1,21 @@
 export interface IShop {
-    id: number,
+    id: string,
     name: string,
     imgUrl: string,
-    websiteUrl: string,
     address: string,
-    neighbourhood: string
+    neighbourhood: string,
+    voting: number
 }
 
 export class Shop implements IShop {
-    id: number = 0;
+    id: string = '';
     name: string = '';
     imgUrl: string = '';
-    websiteUrl: string = '';
     address: string = '';
     neighbourhood: string = '';
+    voting: number = 0
+
+    constructor(init?: Partial<Shop>) {
+        Object.assign(this, init);
+    }
 }

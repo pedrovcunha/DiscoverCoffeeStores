@@ -1,6 +1,6 @@
 import { createApi } from "unsplash-js";
 import { FsqStore } from "../models/fsqStore";
-import { IShop } from "../models/shop";
+import { Shop } from "../models/shop";
 
 // initialise Unsplash. See: https://github.com/unsplash/unsplash-js
 const serverApi = createApi({
@@ -53,13 +53,13 @@ export const fetchCoffeeStores = async (latLong: string = '-34.93112629332741,13
     });
 
     return coffeeStores.map((result, i) => {
-        const store: IShop = {
-            id: result.fsq_id,
+        const store: Shop = {
+            id: `${result.fsq_id}`,
             address: result.location.formatted_address,
             name: result.name,
             neighbourhood: result.location.locality? result.location.locality : result.location.region,
             imgUrl: unsplashPhotos.length > 0? unsplashPhotos[i] : '',
-            websiteUrl: ''
+            voting: 0
         }
         return store;
     });

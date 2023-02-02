@@ -8,11 +8,12 @@ import { fetchCoffeeStores } from '../lib/coffee-stores';
 import { IShop, Shop } from '../models/shop';
 import useTrackLocation from '../hooks/use-track-location';
 import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../stores/context';
+import { Types } from '../stores/reducers';
+import { fetchCoffeeStoresResponse } from './api/getCoffeeStoresByLocation';
 
 // Styles
 import styles from '../styles/Home.module.css';
-import { AppContext } from '../stores/context';
-import { Types } from '../stores/reducers';
 
 interface Props {
   coffeeStores: IShop[];
@@ -31,20 +32,20 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 
 const Home: NextPage<Props> = (props) => {
   const { handleTrackLocation, locationErrorMsg, isFindinglocation } = useTrackLocation();
-  // const [storesNearby, setStoresNearby] = useState<IShop[]>([]);
   const [storesNearbyError, setStoresNearbyError] = useState('');
   const { state:{ latLong, coffeeStores: storesNearby }, dispatch } = useContext(AppContext);
 
   const handleOnBannerBtnClick = () => {
     handleTrackLocation();
   }
-  // bla
+  
   useEffect(() => {
     const fetchStores = async (latLong: string) => {
       let stores: IShop[] = [];
       try{
-        stores = await fetchCoffeeStores(latLong, 12);        
-        // setStoresNearby(stores);
+        const response = await fetch(`api/getCoffeeStoresByLocation?latLong=${latLong}&limit=12`);
+        const json = await response.json() as fetchCoffeeStoresResponse;
+        stores = json.shops;
         dispatch({
           type: Types.SetCoffeeStores,
           payload: {
