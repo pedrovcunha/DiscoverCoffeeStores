@@ -54,12 +54,12 @@ export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function CoffeeStore(initialProps: Props){
     const router = useRouter();
     const dynamicId = router.query.id;
-    const [coffeeStore, setCoffeeStore] = useState<IShop | null>(initialProps.coffeeStore)
-
-    // if getStaticPaths fallback true, nextJs needs a moment to load from getStaticProps as the route has not been accessed/cached by getStaticPath yet
-    if (router.isFallback) return <div>Loading...</div>;
-
+    const [coffeeStore, setCoffeeStore] = useState<IShop | null>(initialProps.coffeeStore);
     const { state: {coffeeStores} } = useContext(AppContext);
+
+    
+
+    
 
     const handleCreateCoffeeStore = async (data: Shop | null) => {
         try {                
@@ -86,7 +86,7 @@ export default function CoffeeStore(initialProps: Props){
         } else {
             handleCreateCoffeeStore(initialProps.coffeeStore);
         }
-    }, [dynamicId, initialProps, initialProps.coffeeStore]);
+    }, [coffeeStores, dynamicId, initialProps, initialProps.coffeeStore]);
 
     const {data, error} = useSWR(
         `/api/getCoffeeStoreById?id=${dynamicId}`,
@@ -100,6 +100,9 @@ export default function CoffeeStore(initialProps: Props){
         }
     }, [data]);
 
+    // if getStaticPaths fallback true, nextJs needs a moment to load from getStaticProps as the route has not been accessed/cached by getStaticPath yet
+    if (router.isFallback) return <div>Loading...</div>;
+    
     const handleUpvodeButton = async (id: string, currentVotes: number) => {        
         try{
             const response = await fetch(`/api/coffeestore/${coffeeStore?.id}`, {

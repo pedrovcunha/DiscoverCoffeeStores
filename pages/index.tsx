@@ -58,7 +58,7 @@ const Home: NextPage<Props> = (props) => {
       return stores;
     }
     if (latLong) fetchStores(latLong);
-  }, [latLong])
+  }, [dispatch, latLong])
 
   return (
     <div className={styles.container}>
@@ -75,7 +75,7 @@ const Home: NextPage<Props> = (props) => {
         {locationErrorMsg && <p>{`Something went wrong: ${locationErrorMsg}`}</p>}
         {storesNearbyError && <p>{`Something went wrong: ${storesNearbyError}`}</p>}
         <div className={styles.heroImage}>
-          <Image src='/static/hero-image.png' width={700} height={400}/>          
+          <Image src='/static/hero-image.png' width={700} height={400} alt="Coffee Connoissour background"/>          
         </div>
 
         {/* Stores Nearby Me */}
